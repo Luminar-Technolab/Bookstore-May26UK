@@ -1,0 +1,200 @@
+
+    MERN (MongoDB,Express & Node js, React) - FULL STACK WEB APPLICATION
+
+    
+    
+    JAVASCRIPT
+------------------
+
+1. Data types : String, Number, Boolean, Null, Undefined, Object, Array
+2. console.log(content) : used to display contents in console
+3. Variables : used to store data.
+    - 3 types : var, const, let keyword
+4. ES6 Features of js
+    - Hoisting
+    - Template Literals
+    - Arrow Functions : (parameters)=>{function body}
+    - Default parameters
+    - Closure Property : used to access outer function Variable inside its inner function
+    - ES6 Modules : use import/export statements
+    - Destructuring : Used to extract values from array / object and store it to seperate Variable
+    - Spread Operator : symbol ... used to expand the iterating Variable
+    - Rest Operator : symbol ... used to collect multiple values into a single array / object
+    - Optional Chaining : used to access deeply nested value
+5. Operators 
+    - Assignment Operators (=)
+    - Arithmetic Operators ( + - / * % ** )
+    - Comparison Operators ( > < == != === <= >= )
+    - Logical Operators ( && || )
+    - Increment / Decrement Operators (++ , --)
+    - Shorthand Operators ( += -= ) =>: num = num+10 / num += 10
+    - Ternary Operators (condition?true statements:false statements)
+6. Conditional statements
+    - if, else, else if
+    - switch
+7. Looping statements
+    - for : entry control loop
+        for(Initialise Variable;condition with Initialised Variable;change Variable used in condition){
+            statements to be executed repeated
+        }
+    - while : entry control loop
+        - Initialise Variable
+        - while(condition with Initialised Variable){
+        -    statements to be executed repeated
+        -    change Variable used in condition
+        }
+    - do while : atleast executes the code once before checking condition, exit control loop
+        - Initialise Variable
+        - do{
+           - statements to be executed repeated
+           - change Variable used in condition
+        }while(condition with Initialised Variable)
+    - nested loop
+8. Functions : used to perfrom specific task
+    - Function definition :
+        - syntax : function function-name(parameters){
+            specific task 
+            return statements
+        }
+    - Function Call : function-name(arguments)
+    - Types of Functions
+        - Predefined function : log(), floor() etc...
+        - Arrow function
+        - Anonymous function : Self executing/ nameless Functions
+        - Callback Functions : Function definition inside a function call, are used to add delay 
+        - Recursive Functions : Calling a function from its own definition similar to loop
+        - Currying Functions : splitting multi arguments function into single argument function it can use 'Closure'
+    - Scope : Defines where a Variable can be accessed
+        - Global Scope : can be accessed anywhere
+        - Functional Scope : can be accessed inside a function only
+        - Block Scope
+9. Array : Used to hold multiple values in a single Variable
+    - to create array : use []
+    - it can contain multi type values
+    - to get array items count : length Property
+    - to access array item use its index value 
+    - Array Methods
+        - push()
+        - unshift()
+        - pop()
+        - shift()
+        - map() : apply mapping function to each item of array to get into another array with result of mapping function
+        - filter() : used to filter based on condition applied in an array & it return a new array
+        - find() : used to get only one item which statisfy the condition applied on a n array
+        - reduce() : used to find smallest,largest/total from an array
+        - forEach() : similar to for of loop
+        - sort()
+        - some() : used to return true from an array if one of the item statisfy the condition
+        - every(): used to return true from an array if all item statisfy the condition
+10. Object : Used to hold multiple value in a single Variable as key-value pair
+    - create object: {key:value}
+    - To access value from an object : use key
+        - Using Bracket Notation : object-name['key']
+        - Using Dot Notation : object-name.key
+    - To insert a value : insert as key-value pair
+    - To update a value : get value using its key and update using assign Operator
+    - TO get all key : Object.keys(objectName)
+    - To get only values : Object.values(objectName)
+    - To check a key is in an object : use in Operator or hasOwnProperty() method
+11. Function Handling in Javascript : Using Call stack
+    - Synchronus function : follows blocking model - ex: console.log(),alert(), Mathematical Operations, loops, regular Functions
+    - Asynchronus function : follows non blocking model - ex: setTimeout(), setInterval(), fetch(), Browser events, promise, Database/api call
+    - Handling Asynchronus function in Javascript :
+        - Using Callback functions : nesting of callback leads to callback hell
+        - Using Promise : It has 3 phases - pending state, resolved state, reject state, to get response from resolved state use 'then' Method, to get response from reject state use catch method
+        - Using async/await keyword : it used to resolve promise with out callback, use async keyword to a function inside Asynchronus function use await keyword for solving promise, it act like normal Synchronus function
+12. API call : used to communicate between different application in internet
+    - based on communication between apps different api types are available
+        - REST API : Server-Client communication, (HTTP protocol (GET, POST, PUT, DELETE) use, data format can be any type)
+        - SOAP API : Server-Client communication, (HTTP protocol (GET, POST, PUT, DELETE) use, data format can be xml type)
+        - GraphQL API : 
+        - WebSocket API : Real chat application
+    - API Call in Javascript
+        - fetch() method
+13. Try-Catch block : handle runtime errors in js
+    try{
+        code may leads to errors
+    }catch(errors){
+        code for solving the errors
+    }
+
+
+    REACT
+--------------
+
+1. Open-source frontend library of js used to build web application
+2. React Features
+    - Components based UI library
+    - Uses Virtual DOM for efficient updates
+    - Reusable Components
+    - Declarative Programming Style
+    - One way data flow
+    - Large ecosystem & community
+    - JSX for designing UI
+3. Components : use function return JSX code, Components are arranged in tree Structure, Root component is App component
+    - Components file name should starts with capital letter and its extension must be js/jsx, function name should similar filename, function must be export from that file
+4. JSX (Javascript XML) : It allows writing html-like syntax inside js
+    - All jsx code should inside a single element (container tag / react fragment  (nameless tag : <> </> ))
+    - All elements should has closing tags. use self closing tag <tag-name/>
+    - Instead of attributes like 'class' & 'for' use 'className' & 'htmlFor'
+    - Inside JSX use camel case only (camelCase)
+    - Add js to jsx using curly braces. {js expression}
+5. React project creation : using vite tool
+    - command : npm create vite@latest react-app-name -- --template react
+    - run project : npm run dev
+    - output : http://localhost:5173/
+6. Files & Folder Structure
+    - .gitignore : used to define files & folders igore while adding to git
+    - package.json : npm configuaration file for project
+    - package-lock.json : dependent package version history
+    - vite.config.json : vite configuaration file
+    - eslint.config.js : eslint configuaration file 
+    - index.html : entry point of your app
+    - node_modules folder : store offline copies of installed packages of a project
+    - public folder : contents can be used in a project with import/export 
+    - src folder : source folder
+        - assets folder : used to hold project assests
+        - main.jsx : Entry point of react app , createRoot lets you create a root to display React components inside a browser DOM node
+        - index.css : Global css file
+        - App.jsx : Root component react application
+        - App.css : style file App component
+7. Styling react component
+    - inline css : use js object as style, where Property & value should follow camelcase
+    - using css file
+    - use css module files (.module.css) : import to Variable in a component
+8. Data communication between components
+    - Parent to child communication : using Props
+9. Props : Is a property component, and it is an object, Is used to access data from parent in child component
+10. List Handling : use map method. Inorder to identify each jsx element we have to set key attribute
+11. Event Handling : when event occurs then call a function defined in the component
+    - Event bind with function with zero argument : Avoid parenthesis while calling the function
+    - Event Handling of function with argument :  call the function inside arraow function body
+    - Event bind of function with argument as event :  call the function inside arraow function body
+12. State : used to store data in component. when state changes component re render
+13. Hooks : Predefined function used in Functional component to access react component Features. All hooks starts with 'use' keyword.
+    - Predefined hooks
+        - useState hook : used to create state in component, syntax : const [state-value,state updation function] = useState(initial-value)
+        - useEffect hook : used to handle side effect of a component, syntax : 
+        useEffect(callback for defining side effect, Dependency)
+            - Dependancy will decide when to apply side effects to the component, It can different values
+                - no Dependency : side effects will apply to the component when a changes occurs init
+                - empty array : side effect will apply only at the creation / loading of component inot browser
+                - array with values (state/props/Variable) : side effect will apply not only at the creation / loading of component into browser but also the array values changes
+        - useRef Hook : used to access & manipulate DOM element, it also used to store mutable value that doesnot cause component re-render when it value changes
+        - useMemo hook : Used to memorise the result so its only recomputed when its dependencies changes, return a value (computed value)
+        - useCallback hook : Used to memorise the function so  reuse it when its dependencies changes, return a function 
+    - Customised hooks : Create a function , its function name should starts with 'use' keyword. 
+14. Conditional Rendering : Control visibility of component based a condition. Use ternary & And Operator
+15. Routing In React : use 'react-router-dom' library
+    - Entire react app should be child of 'BrowserRouter' component of react-router-dom
+    - Use 'Routes' component to hold each Route of all component
+    - To set up path use 'Route' component inside Routes
+    - dynamic Routing : To access dynamic value of a url in a componnet using useParams Hook
+    - Navigation using Link component & useNavigate hook
+16. Form Handling in React : Based on data get from the input tag in a component
+        - Controlled component : Input data will be stored in component state
+        - Uncontrolled component : Input data fetched directly from Real DOM
+        - Formik & Yup package for form handling & validation
+            - Installation : npm i formik yup
+            - useFormik Hook : 
+17. 
