@@ -198,3 +198,55 @@
             - Installation : npm i formik yup
             - useFormik Hook : 
 17. 
+
+
+    MONGODB
+----------------
+
+1. NoSql document-oriented Database. Data stored as JSON like document (BSON). 
+2. MongoDB Structure
+    - Database, Collection, Document, Field
+3. Key Features 
+    - Document-based storage
+    - Schema flexibility
+    - Indexing Support
+    - Aggregation frameworks
+    - Generate unique id for each document in a collection and stored in _id key
+4. Basic MongoDB Commands
+    - show dbs : SHow dbs
+    - show collections : show collections
+    - CRUD Operations
+        - Create : syntax - collection-name.method()
+            - insertOne({key:value}) : insert single in to a collection
+            - insertMany([{key:value}]) :  insert multiple in to a collection
+        - Read
+            - find() : use get all documents
+            - find(condition) : get all documents satisfy the condition
+            - findOne(condition) : used to get a single document
+        - Update : update Operator ($set, $inc, $dec, )
+            - updateOne({key:value}) : update single document in to a collection, updateOne({filter},{update Operator})
+            - updateMany([{key:value}]) :  update multiple in to a collection
+        - Delete
+            - deleteOne({key:value}) : delete single document in to a collection
+            - deleteMany([{key:value}]) :  delete multiple in to a collection
+    - Query Operators
+        - Comparison Operators : syntax - {key:{operator:value}}
+            - Operators :  $gt, $gte, $lt, $lte, $eq, $ne
+        - Logical operator : syntax - {operator:[condition1,condition2]}
+            - Operators : $and, $or
+        - Sorting : sort({key:1/-1}) , 1 - Ascending order, -1 - Descending order
+        - Limit & Skip : limit(number) - limit document upto the number, skip(number) - skip documents upto the number
+    - Indexing : createIndex({key:1}) used to improve searching by limiting in the given Field which we set index
+    - Aggregation : db.collection.aggregate( [ { <stage> }, ... ] )
+        - $lookup : used to left outer join the collections
+            - syntax: {
+                $lookup:
+                    {
+                    from: <collection to join>,
+                    localField: <field from the input documents>,
+                    foreignField: <field from the documents of the "from" collection>,
+                    let: { <var_1>: <expression>, …, <var_n>: <expression> },
+                    pipeline: [ <pipeline to run> ],
+                    as: <output array field>
+                    }
+                }
