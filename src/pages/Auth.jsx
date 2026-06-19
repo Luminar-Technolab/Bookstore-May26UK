@@ -3,7 +3,10 @@ import { FaUser } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom'
 import { useFormik } from "formik";
 import * as Yup from 'yup'
-import { registerAPI } from '../services/allAPI';
+import { googleLoginAPI, loginAPI, registerAPI } from '../services/allAPI';
+import { toast } from 'react-toastify';
+import { GoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from "jwt-decode";
 
 function Auth({insideRegisterRoute}) {
   // console.log(insideRegisterRoute?'Register':'Login');
@@ -14,7 +17,7 @@ function Auth({insideRegisterRoute}) {
       username:"",email:"",password:""
     },
     validationSchema:Yup.object({
-      username:Yup.string().min(3,"Must be atleast 3 characters").required("Username Required"),
+      username:insideRegisterRoute ? Yup.string().min(3,"Must be atleast 3 characters").required("Username Required") : Yup.string(),
       email:Yup.string().email("Invalid Email").required("Email Required"),
       password:Yup.string().required("Password Required")
     }),
@@ -24,7 +27,7 @@ function Auth({insideRegisterRoute}) {
         handleRegister(values)
       }else{
         console.log("login api call");
-        
+        handleLogin(values)
       }
       resetForm()
     }
@@ -33,13 +36,51 @@ function Auth({insideRegisterRoute}) {
   const handleRegister = async(userData)=>{
     const result = await registerAPI(userData)
     if(result.status==201){
-      alert("Successfully registered... Please Login!!!")
+      toast.success("Successfully registered... Please Login!!!")
     }else{
-      alert(result.response)
+      toast.error(result.response)
     }
     //navigate login
     navigate('/login')
   }
+
+  const handleLogin = async(userData)=>{
+    const result = await loginAPI(userData)
+    if(result.status==200){
+      toast.success("Login Successfull...")
+      sessionStorage.setItem("token",result.data.token)
+      sessionStorage.setItem("user",JSON.stringify(result.data.user))
+      setTimeout(() => {
+        if(result.data.user.role=="admin"){
+          navigate('/admin')
+        }else{
+          navigate('/')
+        }
+      }, 2500);
+    }else{
+      toast.error(result.response)
+    }
+  }
+  
+  const handleGoogleLogin = async (credentialResponse)=>{
+    console.log(jwtDecode(credentialResponse.credential));
+    const {name,email,picture} = jwtDecode(credentialResponse.credential)
+    //api call
+    const result = await googleLoginAPI({username:name,email,password:"googlePassword",picture})
+    if(result.status==200){
+      toast.success("Login Successfull...")
+      sessionStorage.setItem("token",result.data.token)
+      sessionStorage.setItem("user",JSON.stringify(result.data.user))
+      setTimeout(() => {
+        if(result.data.user.role=="admin"){
+          navigate('/admin')
+        }else{
+          navigate('/')
+        }
+      }, 2500);
+    }
+  }
+
   return (
    
       <div className='w-full min-h-screen flex justify-center items-center bg-[url(/landing.png)] bg-cover bg-center text-white'>
@@ -76,9 +117,18 @@ function Auth({insideRegisterRoute}) {
               {/* google authentication */}
               {
                 !insideRegisterRoute &&
-                <div className="my-5 text-center">
+                <div className="my-5 text-center ">
                   <p>------------------or-------------------</p>
-                  google-authentication
+                  <div className='mt-2 flex justify-center items-center w-full'>
+                    <GoogleLogin
+                      onSuccess={credentialResponse => {
+                        handleGoogleLogin(credentialResponse)
+                      }}
+                      onError={() => {
+                        console.log('Login Failed');
+                      }}
+                    />
+                  </div>
                 </div>
               }
               {/* new /already user */}
