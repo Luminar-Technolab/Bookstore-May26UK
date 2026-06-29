@@ -5,6 +5,19 @@ const axiosInstance = axios.create({
     timeout:10000
 })
 
+axiosInstance.interceptors.request.use(
+    (config)=>{
+        const token = sessionStorage.getItem("token")
+        if(token){
+            config.headers.Authorization = `Bearer ${token}`
+        }
+        return config
+    },
+    error=>{
+        return Promise.reject(error)
+    }
+)
+
 axiosInstance.interceptors.response.use(
     (response)=>{
         console.log("HTTP Response received!!!");

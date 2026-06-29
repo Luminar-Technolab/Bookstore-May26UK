@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { FaFacebookSquare, FaInstagram, FaUser } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
 import { Link, useNavigate } from 'react-router-dom'
+import axiosInstance from '../../api/axiosInstance'
 
 function Header() {
   const [token,setToken] = useState("")
@@ -53,7 +54,7 @@ function Header() {
           <div>
             {/* profile icon */}
             <button onClick={()=>setDropdown(!dropdown)} className="shadow-sm rounded ms-5 p-1">
-              <img width={'40px'} height={'40px'} style={{borderRadius:'50%'}} src={dp==""?"https://www.pngkey.com/png/full/349-3499617_person-placeholder-person-placeholder.png":dp} alt="profile icon" />
+              <img width={'40px'} height={'40px'} style={{borderRadius:'50%'}} src={dp==""?"https://www.pngkey.com/png/full/349-3499617_person-placeholder-person-placeholder.png":dp.startsWith('https://lh3.googleusercontent.com/')?dp:`${axiosInstance.defaults.baseURL}/uploads/${dp}`} alt="profile icon" />
             </button>
             {/* drop down menu */}
             {
