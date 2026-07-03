@@ -18,3 +18,8 @@ export const googleLoginAPI = async (userData)=>{
 export const userUpdateAPI = async (id,userData)=>{
     return await apiService("PUT",`users/${id}`,userData)
 }
+
+//http://localhost:3000/books : post request by uploadBook compoennte when upload btn cliecked
+export const addBookAPI = async (bookDetails)=>{
+    return await apiService("POST",`books`,bookDetails)
+}

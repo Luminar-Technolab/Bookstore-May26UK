@@ -32,11 +32,12 @@ axiosInstance.interceptors.response.use(
                 console.log("API Not Found");
             }else if(status==500){
                 console.log("Server error ");
-            }else if(error.requset){
+            }else if(error.request){
                 console.log("Client Errors ");
-                return error.requset
+                return error.request
             }else{
                 console.log(`Error : ${error.message}`);
+                // return error
                 
             }
             return Promise.reject(error)
