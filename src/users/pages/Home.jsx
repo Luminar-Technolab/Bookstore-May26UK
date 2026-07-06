@@ -3,8 +3,24 @@ import Header from '../components/Header'
 import Footer from '../../components/Footer'
 import { FaSearch } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { getlatestBooksAPI } from '../../services/allAPI'
+import { useEffect } from 'react'
 
 function Home() {
+
+  const [latestBooks,setLatestBooks] = useState([])
+
+  // console.log(latestBooks);
+
+  useEffect(()=>{
+    getHomepageBooks()
+  },[])
+  
+  const getHomepageBooks = async ()=>{
+    const result = await getlatestBooksAPI()   
+    setLatestBooks(result.data)
+  }
   return (
     <>
     <Header/>
@@ -25,14 +41,21 @@ function Home() {
         <h1 className='text-4xl my-2'>Explore Our Latest Collection</h1>
         <div className="md:grid grid-cols-4 w-full my-10">
           {/* card 1*/}
-          <div className="shadow rounded p-3 m-4 md:my-0">
-            <img width={'100%'} height={'300px'} src="https://tse4.mm.bing.net/th/id/OIP.DM7rcrtxuQKeb4xhB7WsogHaFj?pid=Api&P=0&h=180" alt="book" />
-            <div className="flex flex-col justify-center items-center mt-4">
-              <h2 className="text-xl font-bold">author</h2>
-              <h3 className="text-lg">title</h3>
-              <p className="font-bold text-red-600">$ 50</p>
-            </div>
-          </div>
+          {
+            latestBooks?.length>0?
+              latestBooks?.map(book=>(
+                <div key={book?._id} className="shadow rounded p-3 m-4 md:my-0">
+                  <img width={'100%'} height={'300px'} src={book?.imageURL} alt="book" />
+                  <div className="flex flex-col justify-center items-center mt-4">
+                    <h2 className="text-xl font-bold">{book?.author}</h2>
+                    <h3 className="text-lg">{book?.title}</h3>
+                    <p className="font-bold text-red-600">$ {book?.dicountPrice}</p>
+                  </div>
+                </div>
+              ))
+            :
+            <p className="font-bold">Loading...</p>
+          }
         </div>
         <div className="text-center my-10">
           <Link to={'/books'} className='bg-black p-3 text-white font-black'>Explore More...</Link>

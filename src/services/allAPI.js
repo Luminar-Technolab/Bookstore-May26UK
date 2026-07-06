@@ -16,10 +16,35 @@ export const googleLoginAPI = async (userData)=>{
 
 //http://localhost:3000/users/6a33aca0723ab2526ab071c6 : put request by edit component when update btn clicked
 export const userUpdateAPI = async (id,userData)=>{
-    return await apiService("PUT",`users/${id}`,userData)
+    return await apiService("PUT",`/users/${id}`,userData)
 }
 
 //http://localhost:3000/books : post request by uploadBook compoennte when upload btn cliecked
 export const addBookAPI = async (bookDetails)=>{
-    return await apiService("POST",`books`,bookDetails)
+    return await apiService("POST",`/books`,bookDetails)
+}
+
+//http://localhost:3000/user-books : get request by bookstatus compoenent whne age loads
+export const getAllUserUploadBooksAPI = async ()=>{
+    return await apiService("GET",`/user-books`)
+}
+
+//http://localhost:3000/user-books/6a477efa2341c81338cc0bf7 : delete request by bookstatus when delete btn clicked
+export const removeUserUploadBookAPI = async (bookId)=>{
+    return await apiService("DELETE",`/user-books/${bookId}`)
+}
+
+//http://localhost:3000/user-purchase-books : get request by purchase component when page loads
+export const getAllUserPurchaseBooksAPI = async ()=>{
+    return await apiService("GET",`/user-purchase-books`)
+}
+
+//http://localhost:3000/home-books : get request by home compoennt when page loads
+export const getlatestBooksAPI = async ()=>{
+    return await apiService("GET",`/home-books`)
+}
+
+//http://localhost:3000/all-books : get request by admin resource compoenet when page loads
+export const getallAdminBooksAPI = async ()=>{
+    return await apiService("GET",`/all-books`)
 }
