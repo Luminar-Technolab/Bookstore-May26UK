@@ -49,7 +49,8 @@ function Home() {
                   <div className="flex flex-col justify-center items-center mt-4">
                     <h2 className="text-xl font-bold">{book?.author}</h2>
                     <h3 className="text-lg">{book?.title}</h3>
-                    <p className="font-bold text-red-600">$ {book?.dicountPrice}</p>
+                    <p className="font-bold text-red-600">$ {book?.discountPrice}</p>
+                    
                   </div>
                 </div>
               ))
