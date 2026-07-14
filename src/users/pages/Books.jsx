@@ -1,15 +1,20 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Header from '../components/Header'
 import Footer from '../../components/Footer'
 import { FaBars } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
 import { getallUserBooksAPI } from '../../services/allAPI'
+import { searchContext } from '../../context API/ContextShare'
 
 function Books() {
+
   const [toggle,setToggle] = useState(false)
   const [token,setToken] = useState("")
   const [allBooks,setAllBooks] =useState([])
+  const [categoryList,setCategoryList] = useState([])
+  const [dummyAllBooks,setDummyAllBooks] = useState([])
+  const {searchKey,setSearchKey} = useContext(searchContext)
 
   useEffect(()=>{
     if(sessionStorage.getItem("token")){
@@ -17,12 +22,24 @@ function Books() {
       setToken(userToken)
       getAllBooks()
     }
-  },[])
+  },[searchKey])
 
   const getAllBooks = async ()=>{
-    const result = await getallUserBooksAPI()
+    const result = await getallUserBooksAPI(searchKey)
     setAllBooks(result.data)
+    setDummyAllBooks(result.data)
+    const tempCategoryList = result.data.map(item=>item.category)
+    setCategoryList([...new Set(tempCategoryList)])
   }
+
+  const filterBooks = (category)=>{
+    if(category != 'all'){
+      setAllBooks(dummyAllBooks?.filter(book=>book.category==category))
+    }else{
+      getAllBooks()
+    }
+  }
+
 
   return (
     <>
@@ -33,7 +50,7 @@ function Books() {
       <div className='flex flex-col justify-center items-center my-5'>
         <h1 className="text-3xl font-bold my5">All Books</h1>
         <div className="flex my-5">
-          <input type="text" placeholder='Search Book by Title' className="p-2 border border-gray-200 w-100" />
+          <input value={searchKey} onChange={e=>setSearchKey(e.target.value)} type="text" placeholder='Search Book by Title' className="p-2 border border-gray-200 w-100" />
           <button className="bg-blue-900 p-2 text-white">Search</button>
         </div>      
       </div>
@@ -50,15 +67,19 @@ function Books() {
           <div className={toggle? "block":"hidden md:block"}>
             <div className="mt-3">
               <label htmlFor="all">
-                <input type="radio" name='filter' id="all" /> All
+                <input onClick={()=>filterBooks('all')} type="radio" name='filter' id="all" /> All
               </label>
             </div>
             {/* duplicate according to books category */}
-            <div className="mt-3">
-              <label htmlFor="category">
-                <input type="radio" name='filter' id="category" /> category
-              </label>
-            </div>
+            {
+              categoryList?.map(category=>(
+                <div key={category} className="mt-3">
+                  <label htmlFor={category}>
+                    <input onClick={()=>filterBooks(category)} type="radio" name='filter' id={category} /> {category}
+                  </label>
+                </div>
+              ))
+            }
           </div>
         </div>
         <div className="col-span-3">

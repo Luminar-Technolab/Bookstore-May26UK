@@ -1,15 +1,19 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Header from '../components/Header'
 import Footer from '../../components/Footer'
 import { FaSearch } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { getlatestBooksAPI } from '../../services/allAPI'
 import { useEffect } from 'react'
+import {toast} from'react-toastify'
+import { searchContext } from '../../context API/ContextShare'
 
 function Home() {
 
   const [latestBooks,setLatestBooks] = useState([])
+  const {searchKey,setSearchKey} = useContext(searchContext)
+  const navigate = useNavigate()
 
   // console.log(latestBooks);
 
@@ -21,6 +25,22 @@ function Home() {
     const result = await getlatestBooksAPI()   
     setLatestBooks(result.data)
   }
+
+  const handleSearch = ()=>{
+    if(!searchKey){
+      toast.warning("Please input Book title here!!!")
+    }else if(!sessionStorage.getItem("token")){
+      toast.warning("Please Login!!!")
+      setTimeout(() => {
+        navigate('/login')
+      }, 2000);
+    }else if(searchKey && sessionStorage.getItem("token")) {
+      navigate('/books')
+    }else{
+      toast.error("Something went wrong!!!")
+    }
+  }
+
   return (
     <>
     <Header/>
@@ -30,8 +50,8 @@ function Home() {
           <h1 className="text-6xl font-bold">Wonderful Gifts</h1>
           <p>Gift your family and friends a book</p>
           <div className="mt-9 flex items-center">
-            <input type="text" placeholder='Search book here' className="bg-white p-2 rounded-3xl w-100 text-black" />
-            <FaSearch className='text-gray-500 cursor-pointer' style={{marginLeft:'-40px'}}/>
+            <input onChange={e=>setSearchKey(e.target.value)} type="text" placeholder='Search book here' className="bg-white p-2 rounded-3xl w-100 text-black" />
+            <FaSearch onClick={handleSearch} className='text-gray-500 cursor-pointer' style={{marginLeft:'-40px'}}/>
           </div>
         </div>
       </div>
