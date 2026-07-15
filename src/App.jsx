@@ -13,6 +13,8 @@ import AdminSettings from './admin/pages/AdminSettings'
 import Preloader from './components/Preloader'
 import { useState } from 'react'
 import { ToastContainer } from 'react-toastify';
+import PaymentFail from './users/pages/PaymentFail'
+import PaymentSuccess from './users/pages/PaymentSuccess'
 
 function App() {
 
@@ -33,6 +35,8 @@ function App() {
 
         <Route path='/profile' element={<Profile/>} />
         <Route path='/books/:id' element={<View/>} />
+        <Route path='/payment-success' element={<PaymentSuccess/>} />
+        <Route path='/payment-fail' element={<PaymentFail/>} />
 
         <Route path='/admin' element={<AdminDashboard/>} />
         <Route path='/resources' element={<AdminResources/>} />

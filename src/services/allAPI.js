@@ -68,3 +68,13 @@ export const getallUserBooksAPI = async (searchKey)=>{
 export const viewBookAPI = async (bookId)=>{
     return await apiService("GET",`/books/${bookId}`)
 }
+
+//http://localhost:3000/books/6a4cc0ed9fe951c80b09a004 : put request by View component when buy btn clicked
+export const purchaseBookAPI = async (bookId)=>{
+    return await apiService("PUT",`/books/${bookId}`)
+}
+
+//http://localhost:3000/profile/6a33aca0723ab2526ab071c6 : put request by settings component when update btn clicked
+export const adminUpdateAPI = async (id,userData)=>{
+    return await apiService("PUT",`/profile/${id}`,userData)
+}

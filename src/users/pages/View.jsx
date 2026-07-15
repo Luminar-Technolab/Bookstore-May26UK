@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { viewBookAPI } from '../../services/allAPI'
+import { purchaseBookAPI, viewBookAPI } from '../../services/allAPI'
 import Header from '../components/Header'
 import Footer from '../../components/Footer'
 import { FaBackward, FaCamera, FaEye } from 'react-icons/fa'
 import axiosInstance from '../../api/axiosInstance'
+import {loadStripe} from '@stripe/stripe-js'
 
 function View() {
 
@@ -21,6 +22,14 @@ function View() {
   const getBookDetails = async ()=>{
     const result = await viewBookAPI(id)
     setBookDetails(result.data)
+  }
+
+  const purchaseBook = async ()=>{
+    const stripe = loadStripe(import.meta.env.VITE_STRIPE_PK)
+    //api call - update book buyer mail
+    const result = await purchaseBookAPI(id)
+    const {checkoutURL} = result.data
+    window.location.href = checkoutURL
   }
 
   return (
@@ -46,7 +55,7 @@ function View() {
               <p className="font-bold text-lg">Abstract : {bookDetails?.abstract} </p>
               <div className="flex justify-end mt-10">
                 <Link to={'/books'} className='bg-blue-800 text-white p-2 flex items-center me-5'> <FaBackward className='me-2'/> Back</Link>
-                <button className='bg-green-800 text-white p-2 flex items-center font-bold'>Buy ${bookDetails?.discountPrice} </button>
+                <button onClick={purchaseBook} className='bg-green-800 text-white p-2 flex items-center font-bold'>Buy ${bookDetails?.discountPrice} </button>
               </div>
             </div>
           </div>
