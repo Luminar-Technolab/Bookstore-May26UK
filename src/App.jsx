@@ -11,14 +11,16 @@ import AdminDashboard from './admin/pages/AdminDashboard'
 import AdminResources from './admin/pages/AdminResources'
 import AdminSettings from './admin/pages/AdminSettings'
 import Preloader from './components/Preloader'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { ToastContainer } from 'react-toastify';
 import PaymentFail from './users/pages/PaymentFail'
 import PaymentSuccess from './users/pages/PaymentSuccess'
+import { routeContext } from './context API/AuthGuard'
 
 function App() {
 
   const [loading,setLoading] = useState(true)
+  const {role,setRole,isAuthorised,setIsAuthorised} = useContext(routeContext)
 
   setTimeout(() => {
     setLoading(false)
@@ -33,14 +35,24 @@ function App() {
         <Route path='/login' element={<Auth/>} />
         <Route path='/register' element={<Auth insideRegisterRoute/>} />
 
-        <Route path='/profile' element={<Profile/>} />
-        <Route path='/books/:id' element={<View/>} />
-        <Route path='/payment-success' element={<PaymentSuccess/>} />
-        <Route path='/payment-fail' element={<PaymentFail/>} />
+        {
+          role=="user" &&
+          <>
+            <Route path='/profile' element={<Profile/>} />
+            <Route path='/books/:id' element={<View/>} />
+            <Route path='/payment-success' element={<PaymentSuccess/>} />
+            <Route path='/payment-fail' element={<PaymentFail/>} />
+          </>
+        }
 
-        <Route path='/admin' element={<AdminDashboard/>} />
-        <Route path='/resources' element={<AdminResources/>} />
-        <Route path='/settings' element={<AdminSettings/>} />
+        {
+          role=="admin" &&
+          <>
+            <Route path='/admin' element={<AdminDashboard/>} />
+            <Route path='/resources' element={<AdminResources/>} />
+            <Route path='/settings' element={<AdminSettings/>} />
+          </>
+        }
 
         <Route path='/*' element={<Pnf/>} />
       </Routes>

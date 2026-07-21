@@ -145,7 +145,7 @@ function AdminSettings() {
                   <button onClick={resetUpdateForm} className='bg-gray-400 px-3 py-2 rounded text-white'>Reset</button>
                   <button onClick={handleProfileUpdate} className='bg-blue-400 px-3 py-2 rounded text-white ms-5'>Update</button>
                 </div>
-              </div>
+         </div>
 
         </div>
       </div>

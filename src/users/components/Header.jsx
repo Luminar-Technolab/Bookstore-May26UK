@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { FaFacebookSquare, FaInstagram, FaUser } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
 import { Link, useNavigate } from 'react-router-dom'
 import axiosInstance from '../../api/axiosInstance'
+import { routeContext } from '../../context API/AuthGuard'
 
 function Header() {
+
+  const {role,setRole,isAuthorised,setIsAuthorised} = useContext(routeContext)
   const [token,setToken] = useState("")
   const [dp,setDp] = useState("")
   const [dropdown,setDropdown] = useState(false)
@@ -21,6 +24,7 @@ function Header() {
 
   const logout = ()=>{
     sessionStorage.clear()
+    setIsAuthorised(false)
     setToken("")
     setDp("")
     setDropdown(false)
